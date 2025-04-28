@@ -1,14 +1,13 @@
 name: Send newsletter
 
 on:
-  workflow_dispatch:      # 수동 실행
+  workflow_dispatch:        # 수동 실행
   schedule:
-    - cron:  "50 23 * * *"   # 매일 08:50 KST (UTC 23:50)
+    - cron: "50 23 * * *"   # 매일 08:50 KST (UTC 23:50)
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -26,4 +25,6 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           STIBEE_TOKEN:   ${{ secrets.STIBEE_TOKEN }}
           NEWSLETTER_URL: ${{ secrets.NEWSLETTER_URL }}
+          CPCOUPANG_KEY:  ${{ secrets.CPCOUPANG_KEY }}   # 쿠팡 Access Key
+          CP_TRACK:       ${{ secrets.CP_TRACK }}        # Tracking ID
         run: python src/main.py
